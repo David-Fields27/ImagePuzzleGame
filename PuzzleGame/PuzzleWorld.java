@@ -3,7 +3,7 @@ import javalib.impworld.*;
 import javalib.worldimages.*;
 import java.awt.Color;
 
-//to represent the puzzlegame
+//to represent the world for the puzzle game
 public class PuzzleWorld extends World {
   PuzzleBoard gameBoard; //the current board being displayed
   WorldImage background; //the entire background image (used for sizing the window)
@@ -16,7 +16,7 @@ public class PuzzleWorld extends World {
   //base constructor that loads local image
   public PuzzleWorld(){
     this.gameDimensions = 3;
-    WorldImage img = new FromFileImage("DefaultImage.jpg");
+    WorldImage img = new FromFileImage("Images/DefaultImage.jpg");
     this.puzzleImage = this.gh.cropImage(img, this.gameDimensions);
     this.gameBoard = new PuzzleBoard(this.gh.makeBoard(this.puzzleImage, this.gameDimensions));
     this.gameBoard.scramble();
@@ -53,13 +53,13 @@ public class PuzzleWorld extends World {
   }
   //draws the instructions to the world
   WorldScene drawInstructions(WorldScene scn) {
-    WorldImage fKey = new FromFileImage("KEYBOARD-F-KEY.png");
+    WorldImage fKey = new FromFileImage("Images/KEYBOARD-F-KEY.png");
     WorldImage fInstruct = new TextImage("Flip", 18, Color.BLACK);
-    WorldImage rKey = new FromFileImage("KEYBOARD-R-KEY.png");
+    WorldImage rKey = new FromFileImage("Images/KEYBOARD-R-KEY.png");
     WorldImage rInstruct = new TextImage("Rotate Right", 18, Color.BLACK);
-    WorldImage lKey = new FromFileImage("KEYBOARD-L-KEY.png");
+    WorldImage lKey = new FromFileImage("Images/KEYBOARD-L-KEY.png");
     WorldImage lInstruct = new TextImage("Rotate Left", 18,  Color.BLACK);
-    WorldImage cursor = new FromFileImage("Cursor.png");
+    WorldImage cursor = new FromFileImage("Images/Cursor.png");
     WorldImage cursorInstruct = new TextImage("Select to swap", 18, Color.BLACK);
     WorldImage f = new AboveImage(fKey, fInstruct);
     WorldImage r = new AboveImage(rKey, rInstruct);
@@ -105,6 +105,7 @@ public class PuzzleWorld extends World {
   //determines if the world ends
   public WorldEnd worldEnds() {
     if (this.gameBoard.isCompleted()) {
+      this.mouseSelections.deselectPieces();
       return new WorldEnd(true, this.drawLastScene());
     } else {
       return new WorldEnd(false, this.makeScene());

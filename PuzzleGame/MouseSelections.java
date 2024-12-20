@@ -47,10 +47,18 @@ class MouseSelections {
     this.selectedPiece2 = null;
   }
 
+  void deselectPieces() {
+    if (this.selectedPiece1 != null) { //deselects piece 1
+      this.selectedPiece1.deselect();
+    }
+    if (this.selectedPiece2 != null) {
+      this.selectedPiece2.deselect();
+    }
+  }
+
   //swaps the selected pieces if they are different otherwise deselects the piece
   void swapPieces() {
-    this.selectedPiece1.deselect(); //deselects piece 1
-    this.selectedPiece2.deselect(); //deselects piece 2
+    this.deselectPieces(); //deselects piece 1 and piece 2
     if(this.selectedPiece1.samePiece(this.selectedPiece2)) {
       this.clearSelections(); //the pieces are the same, so nothing should be swapped
     } else {

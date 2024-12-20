@@ -50,7 +50,7 @@ class Piece {
   boolean sameDrawPosn(Position otherPosn) {
     return otherPosn.samePosn(this.drawPosn);
   }
-  // flips the image by reflexing it
+  // flips the image by reflecting it
   void flip(){
     if (this.orientation == 90) {
       this.orientation = 270;
